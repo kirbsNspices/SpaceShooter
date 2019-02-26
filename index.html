@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SpaceShooter</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+    </head>
+    <body id="body">
+        <div id="gameOverScreen" class="gameOverScreen">
+            <div class="center">
+                    <h1 class="gameOverText">GAME OVER</h1>
+                    <h2 class="score">Your score:<br><span id="scoreInsert">0</span></h2>
+                    <a href="index.html" class="playAgain">Play Again?</a>
+            </div>
+        </div>
+        
+        <div class="full-screen">
+            <div class="highScore" id="highScore">
+                <h3>Your high score: <span id="insertHighScore">0</span></h3>  
+            </div>
+            <div class="center">
+                    <h1 class="heading">Space Game</h1>
+                    <button id="startButton">Start</button>
+                    <canvas id="gameArea" width="600px" height="400px" class="gameArea"></canvas>
+                    <br>
+                    <div class="bottom-section" id="insert-here"></div>
+            </div>
+        </div>
+        
+        <img src="assets/ship.png" alt="ship" id="ship" class="hidden">
+        <img src="assets/rocket.png" alt="rocket" id="rocket" class="hidden">
+        <img src="assets/enemy.png" alt="enemy" id="enemy" class="hidden">
+        <img src="assets/heart.png" alt="heart" id="heart" class="hidden">
+        <img src="assets/background.png" alt="background" id="background" class="hidden">
+
+        <script src="app.js" type="module" async defer></script>
+        <script>
+            var controls = [
+                ["Move Left", "A or Left Arrow"],
+                ["Move Right", "D or Right Arrow"],
+                ["Shoot", "Space"],
+                ["Reload", "R"],
+            ];
+
+            function generate_table() {
+  // get the reference for the body
+  let insertArea = document.getElementById("insert-here");
+
+  // creates a <table> element and a <tbody> element
+  var tbl = document.createElement("table");
+  var tblBody = document.createElement("tbody");
+
+  // creating all cells
+  for (var i = 0; i < controls.length; i++) {
+    // creates a table row
+    var row = document.createElement("tr");
+
+    for (var j = 0; j < 2; j++) {
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(""+controls[i][j]);
+      cell.appendChild(cellText);
+      row.appendChild(cell);
+    }
+    tblBody.appendChild(row);
+  }
+
+
+  tbl.appendChild(tblBody);
+
+        insertArea.appendChild(tbl);
+
+  tbl.setAttribute("class", "control-table");
+}
+generate_table();
+
+        let currentHighScore = window.localStorage.getItem('highScore');
+
+        if(currentHighScore){
+            document.getElementById("insertHighScore").innerHTML = currentHighScore;
+        }
+        </script>
+    </body>
+</html>
